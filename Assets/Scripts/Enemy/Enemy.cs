@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour, IDamageable, IKillable
+public class Enemy : MonoBehaviour, IDamageable, IKillable
 {
-    public int health = 400;
+    public int health = 100;
     public int damage = 20;
 
     public void Kill() {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        Destroy(gameObject);
     }
 
     public void Damage(int damage) {
@@ -17,8 +15,7 @@ public class Player : MonoBehaviour, IDamageable, IKillable
         if(health <= 0) {
             Kill();
         }
-
-        Debug.Log("Player: " + health);
+        Debug.Log("Enemy: " + health);
     }
 
     void OnTriggerEnter2D (Collider2D hitInfo) {

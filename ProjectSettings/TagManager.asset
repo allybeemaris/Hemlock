@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - Items
-  - Player
+  - 
   - Enemy
   - Platform
   - Background
@@ -25,14 +25,14 @@ TagManager:
   - 
   - 
   - 
+  - Player
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Trigger
   - 
   - 
   - 
