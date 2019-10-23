@@ -1,28 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject mob;
-    public float secondInterval;
+    public int mobCount;
+    public float spawnInterval;
 
     private float currentTime;
+    private List<GameObject> mobs;
 
-    // Start is called before the first frame update
     void Start()
     {
+        mobs = new List<GameObject>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Remove destroyed mobs
+        mobs = mobs.Where(s => s != null).ToList();
+
         var lapsedTime = Time.fixedDeltaTime;
         currentTime += lapsedTime;
 
-        if (currentTime > secondInterval) {
-            Instantiate(mob, transform.position, transform.rotation);
-            currentTime -= secondInterval;
+        if (currentTime > spawnInterval)
+        {
+            currentTime -= spawnInterval;
+
+            if (mobs.Count < mobCount)
+            {
+                mobs.Add(Instantiate(mob, transform.position, transform.rotation));
+            }
         }
     }
 }
