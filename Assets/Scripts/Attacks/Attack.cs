@@ -9,11 +9,11 @@ public class Attack : MonoBehaviour
     public int damage;
     public float damageAtTime;
     public float liveTime;
+    public List<GameObject> nextAttacks;
 
-    private CircleCollider2D damageTrigger;
-    private float timeAlive = 0;
-    private bool appliedDamage = false;
-    private List<GameObject> nextAttacks;
+    protected CircleCollider2D damageTrigger;
+    protected float timeAlive = 0;
+    protected bool appliedDamage = false;
 
     // Start is called before the first frame update
     void Start()

@@ -9,8 +9,8 @@ public class PlayerAttack : MonoBehaviour
 
     private List<GameObject> attacks;
     private GameObject lastAttack;
-    private Attack lastAttackDetails;
     private GameObject nextAttack;
+    private Attack lastAttackDetails;
 
     public void Start() {
         attacks = new List<GameObject>
@@ -21,14 +21,29 @@ public class PlayerAttack : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButton(Inputs.Attack))
+        if (Input.GetButtonDown(Inputs.Attack))
         {
-            if(lastAttack == null)
+            if (lastAttack == null)
             {
-                var attackToMake = attacks.First();
+                nextAttack = attacks.FirstOrDefault();
+                Debug.Log(nextAttack);
+            }
+            else
+            {
+                Debug.Log("Details: " + lastAttackDetails);
+                Debug.Log("Next Attacks: " + lastAttackDetails.nextAttacks.Count);
+                nextAttack = lastAttackDetails.nextAttacks.FirstOrDefault();
+                Debug.Log(nextAttack);
+            }
+        }
 
-                lastAttack = Instantiate(attackToMake, attackPoint.position, attackPoint.rotation);
+        if (nextAttack != null)
+        {
+            if (lastAttack == null)
+            {
+                lastAttack = Instantiate(nextAttack, attackPoint.position, attackPoint.rotation);
                 lastAttackDetails = lastAttack.GetComponent<Attack>();
+                nextAttack = null;
             }
         }
     }
