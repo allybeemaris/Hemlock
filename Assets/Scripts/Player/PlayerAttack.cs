@@ -8,7 +8,9 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;
 
     private List<GameObject> attacks;
-    private GameObject currentAttack;
+    private GameObject lastAttack;
+    private Attack lastAttackDetails;
+    private GameObject nextAttack;
 
     public void Start() {
         attacks = new List<GameObject>
@@ -19,10 +21,15 @@ public class PlayerAttack : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButtonDown(Inputs.Attack))
+        if (Input.GetButton(Inputs.Attack))
         {
-            currentAttack = attacks.First();
-            Instantiate(currentAttack, attackPoint.position, attackPoint.rotation);
+            if(lastAttack == null)
+            {
+                var attackToMake = attacks.First();
+
+                lastAttack = Instantiate(attackToMake, attackPoint.position, attackPoint.rotation);
+                lastAttackDetails = lastAttack.GetComponent<Attack>();
+            }
         }
     }
 }

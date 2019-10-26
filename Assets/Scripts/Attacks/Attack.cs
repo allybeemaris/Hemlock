@@ -9,16 +9,17 @@ public class Attack : MonoBehaviour
     public int damage;
     public float damageAtTime;
     public float liveTime;
-    public List<Attack> possiblePreviousAttacks;
 
     private CircleCollider2D damageTrigger;
     private float timeAlive = 0;
     private bool appliedDamage = false;
+    private List<GameObject> nextAttacks;
 
     // Start is called before the first frame update
     void Start()
     {
         damageTrigger = GetComponent<CircleCollider2D>();
+        nextAttacks = new List<GameObject>();
     }
 
     // Update is called once per frame
