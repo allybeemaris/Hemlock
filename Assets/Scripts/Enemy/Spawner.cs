@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
 
         if (currentTime > spawnInterval)
         {
-            currentTime -= spawnInterval;
+            currentTime = 0f;
 
             if (mobs.Count < mobCount)
             {

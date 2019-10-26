@@ -20,8 +20,6 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable
         if(health <= 0) {
             Kill();
         }
-
-        Debug.Log("Enemy: " + health);
     }
 
     void OnTriggerEnter2D (Collider2D hitInfo) {

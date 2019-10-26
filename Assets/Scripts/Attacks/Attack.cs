@@ -4,11 +4,12 @@ using System.Linq;
 
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+public class Attack : MonoBehaviour
 {
     public int damage;
     public float damageAtTime;
     public float liveTime;
+    public List<Attack> possiblePreviousAttacks;
 
     private CircleCollider2D damageTrigger;
     private float timeAlive = 0;
@@ -25,19 +26,22 @@ public class Explosion : MonoBehaviour
     {
         timeAlive += Time.fixedDeltaTime;
 
-        if (timeAlive >= liveTime)
-        {
-            Destroy(gameObject);
-        }
-
         if (timeAlive >= damageAtTime
             && appliedDamage == false)
         {
             appliedDamage = true;
 
-            var objects = Physics2D.OverlapCircleAll(damageTrigger.transform.position, damageTrigger.radius);
+            var contactFilter = new ContactFilter2D();
+            var objects = new Collider2D[50];
+
+            Physics2D.OverlapCollider(damageTrigger, contactFilter, objects);
+
             foreach(var obj in objects)
             {
+                if (obj == null) {
+                    break;
+                }
+
                 var damageable = obj.GetComponent<IDamageable>();
 
                 if (damageable != null)
@@ -47,5 +51,9 @@ public class Explosion : MonoBehaviour
             }
         }
 
+        if (timeAlive >= liveTime)
+        {
+            Destroy(gameObject);
+        }
     }
 }

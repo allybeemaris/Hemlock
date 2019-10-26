@@ -1,24 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject attack;
     public Transform attackPoint;
-    public float attackWaitTime;
 
-    private float currentWaitTime;
+    private List<GameObject> attacks;
+    private GameObject currentAttack;
 
-    void Update()
+    public void Start() {
+        attacks = new List<GameObject>
+        {
+            (GameObject) Resources.Load(ResourcePaths.Explosion)
+        };
+    }
+
+    public void Update()
     {
-        currentWaitTime += Time.fixedDeltaTime;
-
-        if (Input.GetButtonDown("Fire1")) {
-            if (currentWaitTime > attackWaitTime) {
-                Instantiate(attack, attackPoint.position, attackPoint.rotation);
-                currentWaitTime -= attackWaitTime;
-            }
+        if (Input.GetButtonDown(Inputs.Attack))
+        {
+            currentAttack = attacks.First();
+            Instantiate(currentAttack, attackPoint.position, attackPoint.rotation);
         }
     }
 }
