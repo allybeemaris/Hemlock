@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : Attack
+public class MeleeAttack1 : Attack
 {
     void Start()
     {
-        damageTrigger = GetComponent<CircleCollider2D>();
+        damageTrigger = GetComponent<CapsuleCollider2D>();
         nextAttacks = new List<GameObject>
         {
-            (GameObject) Resources.Load(ResourcePaths.FarExplosion)
+            (GameObject) Resources.Load(ResourcePaths.MeleeAttack2)
         };
     }
 }

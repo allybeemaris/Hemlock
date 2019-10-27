@@ -11,38 +11,41 @@ public class PlayerAttack : MonoBehaviour
     private GameObject lastAttack;
     private GameObject nextAttack;
     private Attack lastAttackDetails;
+    private float lastAttackTime;
 
     public void Start() {
         attacks = new List<GameObject>
         {
-            (GameObject) Resources.Load(ResourcePaths.Explosion)
+            (GameObject) Resources.Load(ResourcePaths.MeleeAttack1)
         };
     }
 
     public void Update()
     {
+        lastAttackTime += Time.fixedDeltaTime;
+
         if (Input.GetButtonDown(Inputs.Attack))
         {
             if (lastAttack == null)
             {
                 nextAttack = attacks.FirstOrDefault();
-                Debug.Log(nextAttack);
             }
             else
             {
-                Debug.Log("Details: " + lastAttackDetails);
-                Debug.Log("Next Attacks: " + lastAttackDetails.nextAttacks.Count);
                 nextAttack = lastAttackDetails.nextAttacks.FirstOrDefault();
-                Debug.Log(nextAttack);
             }
         }
 
         if (nextAttack != null)
         {
-            if (lastAttack == null)
+            if (lastAttack == null
+                || lastAttackTime >= lastAttackDetails.liveTime * .5f)
             {
-                lastAttack = Instantiate(nextAttack, attackPoint.position, attackPoint.rotation);
+                var instancePosition = new Vector3(attackPoint.position.x, attackPoint.position.y, nextAttack.transform.position.z);
+
+                lastAttack = Instantiate(nextAttack, instancePosition, attackPoint.rotation);
                 lastAttackDetails = lastAttack.GetComponent<Attack>();
+                lastAttackTime = 0;
                 nextAttack = null;
             }
         }

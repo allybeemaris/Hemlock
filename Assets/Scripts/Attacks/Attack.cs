@@ -11,14 +11,14 @@ public class Attack : MonoBehaviour
     public float liveTime;
     public List<GameObject> nextAttacks;
 
-    protected CircleCollider2D damageTrigger;
+    protected Collider2D damageTrigger;
     protected float timeAlive = 0;
     protected bool appliedDamage = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        damageTrigger = GetComponent<CircleCollider2D>();
+        damageTrigger = GetComponent<Collider2D>();
         nextAttacks = new List<GameObject>();
     }
 
