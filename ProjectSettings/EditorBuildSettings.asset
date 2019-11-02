@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Levels/MailLevel/MainScene.unity
     guid: 1b103d3a1491f2949a996886079bb89c
   m_configObjects: {}
