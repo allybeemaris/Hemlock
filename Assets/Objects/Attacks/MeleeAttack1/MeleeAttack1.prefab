@@ -136,4 +136,4 @@ MonoBehaviour:
   nextAttacks:
   - {fileID: 3316777753904140069, guid: a35638821cf10d94099daac443b159da, type: 3}
   attacker: {fileID: 0}
-  onHitMoveAmount: 400
+  attackForce: 400

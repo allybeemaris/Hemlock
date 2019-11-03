@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
     public float liveTime;
     public List<GameObject> nextAttacks;
     public Rigidbody2D attacker;
-    public float onHitMoveAmount;
+    public float attackForce;
 
     protected float timeAlive = 0;
     protected bool appliedDamage = false;
@@ -21,6 +21,8 @@ public class Attack : MonoBehaviour
     void Update()
     {
         timeAlive += Time.fixedDeltaTime;
+
+        var attackerDirection = gameObject.transform.forward.z;
 
         if (timeAlive >= damageAtTime
             && appliedDamage == false)
@@ -47,10 +49,17 @@ public class Attack : MonoBehaviour
 
                 var hardthing = obj.GetComponent<IHardThing>();
 
-                if (hardthing != null) {
+                if (hardthing != null)
+                {
                     var hardness = hardthing.GetHardness();
-                    var attackerDirection = gameObject.transform.forward.z;
-                    attacker.AddForce(new Vector2(onHitMoveAmount * hardness * -attackerDirection, 0f));
+                    attacker.AddForce(new Vector2(attackForce * hardness * -attackerDirection, 0f));
+                }
+
+                var pushable = obj.GetComponent<IPushable>();
+
+                if (pushable != null)
+                {
+                    pushable.Push(attackerDirection, attackForce);
                 }
             }
         }
