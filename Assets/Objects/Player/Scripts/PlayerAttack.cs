@@ -14,6 +14,17 @@ public class PlayerAttack : MonoBehaviour
     private float lastAttackTime;
 
     public void Start() {
+        var rigidbody = this.GetComponent<Rigidbody2D>();
+
+        foreach (var attack in attacks)
+        {
+            var attackScript = attack.GetComponent<Attack>();
+
+            if (attackScript != null)
+            {
+                attackScript.attacker = rigidbody;
+            }
+        }
     }
 
     public void Update()

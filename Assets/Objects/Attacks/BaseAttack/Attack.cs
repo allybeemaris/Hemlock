@@ -11,6 +11,8 @@ public class Attack : MonoBehaviour
     public Collider2D damageTrigger;
     public float liveTime;
     public List<GameObject> nextAttacks;
+    public Rigidbody2D attacker;
+    public float onHitMoveAmount;
 
     protected float timeAlive = 0;
     protected bool appliedDamage = false;
@@ -41,6 +43,14 @@ public class Attack : MonoBehaviour
                 if (damageable != null)
                 {
                     damageable.Damage(damage, ObjectType.Player);
+                }
+
+                var hardthing = obj.GetComponent<IHardThing>();
+
+                if (hardthing != null) {
+                    var hardness = hardthing.GetHardness();
+                    var attackerDirection = gameObject.transform.forward.z;
+                    attacker.AddForce(new Vector2(onHitMoveAmount * hardness * -attackerDirection, 0f));
                 }
             }
         }

@@ -135,3 +135,5 @@ MonoBehaviour:
   liveTime: 0.4
   nextAttacks:
   - {fileID: 3705981187773245959, guid: fc98f11b901fe564ea1fad234514378d, type: 3}
+  attacker: {fileID: 0}
+  onHitMoveAmount: 400

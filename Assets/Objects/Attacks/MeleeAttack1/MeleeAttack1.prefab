@@ -131,7 +131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   damageAtTime: 0.01
+  damageTrigger: {fileID: 2946333318781218333}
   liveTime: 0.4
   nextAttacks:
   - {fileID: 3316777753904140069, guid: a35638821cf10d94099daac443b159da, type: 3}
-  damageTrigger: {fileID: 2946333318781218333}
+  attacker: {fileID: 0}
+  onHitMoveAmount: 400
